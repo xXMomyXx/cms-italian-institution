@@ -1,0 +1,46 @@
+<%- include('../../partials/admin-header', { pageTitle: 'Notizie' }) %>
+
+<div class="list-container">
+  <h1>Notizie</h1>
+
+  <a href="/admin/news/new" class="btn btn-primary">+ Nuova Notizia</a>
+
+  <% if (news.length === 0) { %>
+    <p class="empty-state">Nessuna notizia creata. <a href="/admin/news/new">Crea la prima notizia</a></p>
+  <% } else { %>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Titolo</th>
+          <th>Data</th>
+          <th>Stato</th>
+          <th>Data Creazione</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% news.forEach(n => { %>
+          <tr>
+            <td><strong><%= n.title %></strong></td>
+            <td><%= new Date(n.news_date).toLocaleDateString('it-IT') %></td>
+            <td>
+              <span class="status <%= n.published ? 'published' : 'draft' %>">
+                <%= n.published ? 'Pubblicata' : 'Bozza' %>
+              </span>
+            </td>
+            <td><%= new Date(n.created_at).toLocaleDateString('it-IT') %></td>
+            <td class="actions">
+              <a href="/admin/news/<%= n.id %>/edit" class="btn btn-small btn-secondary">Modifica</a>
+              <form method="POST" action="/admin/news/<%= n.id %>/delete" style="display:inline;" onsubmit="return confirm('Sei sicuro?')">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn btn-small btn-danger">Elimina</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../../partials/admin-footer') %>

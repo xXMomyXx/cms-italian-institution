@@ -1,0 +1,43 @@
+<%- include('../../partials/admin-header', { pageTitle: isEdit ? 'Modifica Pagina' : 'Nuova Pagina' }) %>
+
+<div class="form-container">
+  <h1><%= isEdit ? 'Modifica Pagina' : 'Nuova Pagina' %></h1>
+
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-error"><%= error %></div>
+  <% } %>
+
+  <form method="POST" action="<%= isEdit ? '/admin/pages/' + page.id : '/admin/pages' %>" class="content-form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="form-group">
+      <label for="title">Titolo *</label>
+      <input type="text" id="title" name="title" value="<%= page?.title || '' %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="slug">Slug (URL) *</label>
+      <input type="text" id="slug" name="slug" value="<%= page?.slug || '' %>" required>
+      <small>Usato nell'URL, es. "chi-siamo" per /pagina/chi-siamo</small>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Contenuto *</label>
+      <textarea id="content" name="content" rows="12" required><%= page?.content || '' %></textarea>
+      <small>Supporta HTML (tag pericolosi verranno rimossi automaticamente)</small>
+    </div>
+
+    <div class="form-group checkbox">
+      <input type="checkbox" id="published" name="published" <%= page?.published ? 'checked' : '' %>>
+      <label for="published">Pubblica</label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <%= isEdit ? 'Aggiorna' : 'Crea' %>
+      </button>
+      <a href="/admin/pages" class="btn btn-secondary">Annulla</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../../partials/admin-footer') %>

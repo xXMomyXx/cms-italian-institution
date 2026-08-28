@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'CMS' %> - Admin</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
+  <nav class="admin-nav">
+    <div class="admin-nav-brand">CMS Admin</div>
+    <div class="admin-nav-links">
+      <a href="/admin" class="nav-link">Dashboard</a>
+      <a href="/admin/pages" class="nav-link">Pagine</a>
+      <a href="/admin/news" class="nav-link">Notizie</a>
+      <a href="/admin/logout" class="nav-link logout">Esci</a>
+    </div>
+  </nav>
+  <% } %>
+  <div class="admin-container">

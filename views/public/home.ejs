@@ -1,0 +1,35 @@
+<%- include('../partials/public-header', { pageTitle: 'Home' }) %>
+
+<div class="hero">
+  <h1>Benvenuto</h1>
+  <p>Portale dell'Istituzione Pubblica</p>
+</div>
+
+<div class="content-section">
+  <h2>Ultime Notizie</h2>
+
+  <% if (latestNews && latestNews.length > 0) { %>
+    <div class="news-grid">
+      <% latestNews.forEach(news => { %>
+        <article class="news-card">
+          <h3><a href="/notizie/<%= news.id %>"><%= news.title %></a></h3>
+          <p class="news-date">
+            <time datetime="<%= news.news_date %>"><%= new Date(news.news_date).toLocaleDateString('it-IT') %></time>
+          </p>
+          <p class="news-excerpt">
+            <%- news.content.substring(0, 150).replace(/<[^>]*>/g, '') %>...
+          </p>
+          <a href="/notizie/<%= news.id %>" class="btn btn-link">Leggi tutto &rarr;</a>
+        </article>
+      <% }); %>
+    </div>
+
+    <div class="center-link">
+      <a href="/notizie" class="btn btn-secondary">Tutte le notizie</a>
+    </div>
+  <% } else { %>
+    <p>Nessuna notizia disponibile.</p>
+  <% } %>
+</div>
+
+<%- include('../partials/public-footer') %>

@@ -1,0 +1,10 @@
+<%- include('partials/public-header', { pageTitle: 'Pagina non trovata', pages: typeof pages !== 'undefined' ? pages : [] }) %>
+
+<div class="error-container">
+  <h1>404</h1>
+  <h2>Pagina non trovata</h2>
+  <p>La pagina che cerchi non esiste o non &egrave; pubblicata.</p>
+  <a href="/" class="btn btn-secondary">Torna alla Home</a>
+</div>
+
+<%- include('partials/public-footer') %>

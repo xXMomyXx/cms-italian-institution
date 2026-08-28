@@ -1,0 +1,59 @@
+<%- include('../partials/admin-header', { pageTitle: 'Dashboard' }) %>
+
+<div class="dashboard">
+  <h1>Dashboard</h1>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-card">
+      <h2>Pagine Statiche</h2>
+      <p class="stat-number"><%= pages.length %></p>
+      <a href="/admin/pages" class="btn btn-secondary">Gestisci Pagine</a>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>Notizie</h2>
+      <p class="stat-number"><%= news.length %></p>
+      <a href="/admin/news" class="btn btn-secondary">Gestisci Notizie</a>
+    </div>
+  </div>
+
+  <div class="recent-items">
+    <div class="recent-section">
+      <h3>Ultime Pagine</h3>
+      <% if (pages.length > 0) { %>
+        <ul class="item-list">
+          <% pages.slice(0, 5).forEach(page => { %>
+            <li>
+              <strong><%= page.title %></strong>
+              <span class="status <%= page.published ? 'published' : 'draft' %>">
+                <%= page.published ? 'Pubblicata' : 'Bozza' %>
+              </span>
+            </li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p>Nessuna pagina creata</p>
+      <% } %>
+    </div>
+
+    <div class="recent-section">
+      <h3>Ultime Notizie</h3>
+      <% if (news.length > 0) { %>
+        <ul class="item-list">
+          <% news.slice(0, 5).forEach(n => { %>
+            <li>
+              <strong><%= n.title %></strong>
+              <span class="status <%= n.published ? 'published' : 'draft' %>">
+                <%= n.published ? 'Pubblicata' : 'Bozza' %>
+              </span>
+            </li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p>Nessuna notizia creata</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/admin-footer') %>

@@ -1,0 +1,20 @@
+<%- include('../partials/public-header', { pageTitle: newsItem.title }) %>
+
+<div class="page-header">
+  <h1><%= newsItem.title %></h1>
+  <p class="news-date">
+    <time datetime="<%= newsItem.news_date %>"><%= new Date(newsItem.news_date).toLocaleDateString('it-IT') %></time>
+  </p>
+</div>
+
+<div class="content-section">
+  <article class="news-full">
+    <%- newsItem.content %>
+  </article>
+
+  <div class="back-link">
+    <a href="/notizie" class="btn btn-secondary">&larr; Torna alle notizie</a>
+  </div>
+</div>
+
+<%- include('../partials/public-footer') %>

@@ -1,0 +1,9 @@
+<%- include('partials/public-header', { pageTitle: 'Errore', pages: typeof pages !== 'undefined' ? pages : [] }) %>
+
+<div class="error-container">
+  <h1>Errore</h1>
+  <p><%= typeof error !== 'undefined' ? error : 'Si &egrave; verificato un errore imprevisto.' %></p>
+  <a href="/" class="btn btn-secondary">Torna alla Home</a>
+</div>
+
+<%- include('partials/public-footer') %>

@@ -1,0 +1,28 @@
+<%- include('../partials/public-header', { pageTitle: 'Notizie' }) %>
+
+<div class="page-header">
+  <h1>Notizie</h1>
+</div>
+
+<div class="content-section">
+  <% if (news && news.length > 0) { %>
+    <div class="news-list">
+      <% news.forEach(n => { %>
+        <article class="news-item">
+          <h2><a href="/notizie/<%= n.id %>"><%= n.title %></a></h2>
+          <p class="news-date">
+            <time datetime="<%= n.news_date %>"><%= new Date(n.news_date).toLocaleDateString('it-IT') %></time>
+          </p>
+          <div class="news-content">
+            <%- n.content.substring(0, 300).replace(/<[^>]*>$/, '') %>...
+          </div>
+          <a href="/notizie/<%= n.id %>" class="btn btn-link">Continua a leggere &rarr;</a>
+        </article>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p class="empty-state">Nessuna notizia disponibile.</p>
+  <% } %>
+</div>
+
+<%- include('../partials/public-footer') %>

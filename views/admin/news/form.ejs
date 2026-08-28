@@ -1,0 +1,42 @@
+<%- include('../../partials/admin-header', { pageTitle: isEdit ? 'Modifica Notizia' : 'Nuova Notizia' }) %>
+
+<div class="form-container">
+  <h1><%= isEdit ? 'Modifica Notizia' : 'Nuova Notizia' %></h1>
+
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-error"><%= error %></div>
+  <% } %>
+
+  <form method="POST" action="<%= isEdit ? '/admin/news/' + newsItem.id : '/admin/news' %>" class="content-form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="form-group">
+      <label for="title">Titolo *</label>
+      <input type="text" id="title" name="title" value="<%= newsItem?.title || '' %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="news_date">Data della Notizia *</label>
+      <input type="date" id="news_date" name="news_date" value="<%= newsItem?.news_date || today %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Contenuto *</label>
+      <textarea id="content" name="content" rows="12" required><%= newsItem?.content || '' %></textarea>
+      <small>Supporta HTML (tag pericolosi verranno rimossi automaticamente)</small>
+    </div>
+
+    <div class="form-group checkbox">
+      <input type="checkbox" id="published" name="published" <%= newsItem?.published ? 'checked' : '' %>>
+      <label for="published">Pubblica</label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <%= isEdit ? 'Aggiorna' : 'Crea' %>
+      </button>
+      <a href="/admin/news" class="btn btn-secondary">Annulla</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../../partials/admin-footer') %>

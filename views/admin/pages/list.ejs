@@ -1,0 +1,46 @@
+<%- include('../../partials/admin-header', { pageTitle: 'Pagine' }) %>
+
+<div class="list-container">
+  <h1>Pagine Statiche</h1>
+
+  <a href="/admin/pages/new" class="btn btn-primary">+ Nuova Pagina</a>
+
+  <% if (pages.length === 0) { %>
+    <p class="empty-state">Nessuna pagina creata. <a href="/admin/pages/new">Crea la prima pagina</a></p>
+  <% } else { %>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Titolo</th>
+          <th>Slug</th>
+          <th>Stato</th>
+          <th>Data Creazione</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% pages.forEach(p => { %>
+          <tr>
+            <td><strong><%= p.title %></strong></td>
+            <td>/pagina/<%= p.slug %></td>
+            <td>
+              <span class="status <%= p.published ? 'published' : 'draft' %>">
+                <%= p.published ? 'Pubblicata' : 'Bozza' %>
+              </span>
+            </td>
+            <td><%= new Date(p.created_at).toLocaleDateString('it-IT') %></td>
+            <td class="actions">
+              <a href="/admin/pages/<%= p.id %>/edit" class="btn btn-small btn-secondary">Modifica</a>
+              <form method="POST" action="/admin/pages/<%= p.id %>/delete" style="display:inline;" onsubmit="return confirm('Sei sicuro?')">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn btn-small btn-danger">Elimina</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../../partials/admin-footer') %>
